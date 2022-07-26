@@ -1,0 +1,69 @@
+# Title
+
+# Heading 1 {#heading-1}
+
+
+## Heading 2 {#heading-2}
+
+
+### Heading 3 {#heading-3}
+
+This is a line with no formatting
+
+This line has _italics _in it
+
+This line has **bold** in it
+
+This line has **_bold italics_** because I am curious
+
+This is <span style="text-decoration:underline;">underlined</span>
+
+This has ~~strikethrough~~ because I like that one
+
+This has <sup>superscript</sup> and <sub>subscript</sub> text
+
+This has an [internal link](#heading-2) and an [external one](https://catgirl.software/~emma/resume)
+
+I might want a cool dividing line?
+
+
+---
+
+There’s one
+
+This is centred
+
+<p style="text-align: right">
+This is right aligned </p>
+
+
+Unordered dot points:
+
+
+
+* Dot point
+* Dot point
+    * Indented
+* Dot point
+
+This is an ordered list:
+
+
+
+1. One
+2. Two
+    1. Two a
+    2. Two b
+3. Three
+
+Ordered list in unordered:
+
+
+
+* Dot
+* Dot
+* Dot
+    1. A
+    2. B
+    3. C
+* Dot
