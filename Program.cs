@@ -1,8 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Collections.Generic;
-
-// Usage
+﻿// Usage
 // program.exe [targets]
 // [targets] is a list of filenames or directories
 // will htmlify any file named directly, and all .txt files in directories (recursive)
@@ -38,6 +34,10 @@ TODO: Is there some way to distinguish italics that shouldn't be <em>? May need 
 Links added as stretch goal because that's going to be slightly more complex
 
 */
+
+using System;
+using System.IO;
+using System.Collections.Generic;
 
 public enum TagType { html, head, title, body, par, heading, em, strong, del, un_list, or_list, list_item, link }
 
