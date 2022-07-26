@@ -2,6 +2,11 @@
 using System.IO;
 using System.Collections.Generic;
 
+// Usage
+// program.exe [targets]
+// [targets] is a list of filenames or directories
+// will htmlify any file named directly, and all .txt files in directories (recursive)
+
 /* Language description time
     
 Headings: ###(n) [Text] -> <h(n)> [Text] </h(n)>
@@ -190,8 +195,9 @@ public class Parser
 
     public void ProcessFile(string filename)
     {
+        string output_name = Path.ChangeExtension(filename, "html");
         using (StreamReader reader = new StreamReader(filename))
-        using (StreamWriter writer = new StreamWriter(filename + ".html"))
+        using (StreamWriter writer = new StreamWriter(output_name))
         {
             writer.WriteLine(tags.OpenTag(TagType.html));
             writer.WriteLine(Spacer() + tags.OpenTag(TagType.head));
@@ -307,7 +313,46 @@ public class Parser
             writer.WriteLine(Spacer() + tags.CloseTag(TagType.body));
             writer.WriteLine(tags.CloseTag(TagType.html));
 
-            Console.WriteLine("Output to " + filename + ".html");
+            Console.WriteLine("Output to " + output_name);
+        }
+    }
+
+    void ProcessDirectory(string target)
+    {
+        // Process the list of files found in the directory
+        string[] files = Directory.GetFiles(target, "*.txt");
+        foreach (string file in files)
+            ProcessFile(file);
+
+        // Recurse into subdirectories of this directory
+        string[] subdirs = Directory.GetDirectories(target);
+        foreach (string subdir in subdirs)
+            ProcessDirectory(subdir);
+    }
+
+    public void Process(string[] targets)
+    {
+        foreach (var target in targets)
+        {
+            if (File.Exists(target))
+            {
+                try
+                {
+                    ProcessFile(target);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("File processing failed: " + e);
+                }
+            }
+            else if (Directory.Exists(target))
+            {
+                ProcessDirectory(target);
+            }
+            else
+            {
+                Console.WriteLine("Could not find target file or directory: " + target);
+            }
         }
     }
 }
@@ -323,17 +368,8 @@ public class Program
         }
 
         Parser parser = new Parser();
+        parser.Process(args);
 
-		foreach (var filename in args)
-        {
-			try
-            {
-                parser.ProcessFile(filename);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("File read failed: " + e);
-            }
-        }
+        return;
 	}
 }
